@@ -1,0 +1,1 @@
+我是classpath:/public/文件夹下的静态资源

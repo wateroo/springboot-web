@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.watero.app.mapper.UserMapper">
+
+
+    <select id="findUserById" resultType="com.watero.app.entity.User">
+        select * from User where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.watero.app.entity.User">
+        select * from User
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
+
+
+    <!--2.数据库自动生成主键 ，需要数据库支持，且数据库表已经对id使用了自动生成的列类型-->
+    <insert id="insertUserWithAutoKey" useGeneratedKeys="true" keyProperty="id" parameterType="com.watero.app.entity.User">
+		insert into User (name,age) values (#{name},#{age})
+	</insert>
+
+    <update id="updateById" parameterType="com.watero.app.entity.User">
+        update User set name=#{name},age=#{age} where id=#{id}
+
+    </update>
+
+    <delete id="deleteUserById" parameterType="java.lang.Long">
+        delete from User  where id=#{id}
+
+    </delete>
+
+
+
+</mapper>
